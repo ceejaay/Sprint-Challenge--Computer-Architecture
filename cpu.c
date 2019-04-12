@@ -4,9 +4,6 @@
 #include <string.h>
 #define DATA_LEN 6
 
-/**
- * Load the binary bytes from a .ls8 source file into a RAM array
- */
 void cpu_load(struct cpu *cpu, char **arg_v, int arg_c)
 { 
   if (arg_c != 2) {
@@ -162,21 +159,12 @@ void cpu_run(struct cpu *cpu)
          arg_1 = cpu->ram[cpu->pc + 1]; //the register values 
          arg_2 = cpu->ram[cpu->pc + 2];
          alu(cpu, ALU_CMP, arg_1, arg_2);
-         /* if( cpu->registers[arg_1] > cpu->registers[arg_2]) { // the comparison */
-         /*   printf("Larger: %d\n", cpu->registers[arg_1]); */
-         /* } else { */
-         /*   printf("Larger: %d\n", cpu->registers[arg_2]); */
-
-         /* } */
-
          cpu->pc += arg_count + 1;
          break;
 
        case JEQ:
          if(e_flag == 1) {
-/* printf(" checking Jeq flags\n"); */
            arg_1 = cpu->ram[cpu->pc + 1];// get the register value 
-           /* printf("arg 1 should be ") */
            cpu->pc = cpu->registers[arg_1];
          } else {
            cpu->pc += arg_count + 1;
@@ -184,14 +172,9 @@ void cpu_run(struct cpu *cpu)
          break;
 
        case JNE:
-         /* printf("e_flag value: %d\n", e_flag); */
 
          if(e_flag == 0) {
-/* printf(" checking jne flags\n"); */
            arg_1 = cpu->ram[cpu->pc + 1];
-           /* printf("arg 1 value: %d\n", arg_1); */
-
-           /* printf("register 2: %d\n", cpu->registers[arg_1]); */
            cpu->pc = cpu->registers[arg_1];
          } else {
            cpu->pc += arg_count + 1;
